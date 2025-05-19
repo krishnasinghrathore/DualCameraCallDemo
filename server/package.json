@@ -1,0 +1,20 @@
+{
+  "name": "dual-camera-signaling",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0",
+    "ws": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.5.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

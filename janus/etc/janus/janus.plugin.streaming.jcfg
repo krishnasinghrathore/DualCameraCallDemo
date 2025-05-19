@@ -1,0 +1,17 @@
+# Janus Streaming plugin configuration
+# Each "streamX" block defines one mountpoint.
+
+stream1: {
+  type        = "rtsp"                                      # RTSP input
+  id          = 1                                           # unique numeric ID
+  description = "Phone Camera"                              # shown to clients
+  url         = "rtsp://192.168.31.217:8080/h264_opus.sdp"  # your phone’s RTSP URL
+  metadata    = "Phone camera via RTSP"                     # any metadata you like
+  audio       = true                                        # yes audio                                        
+  video       = true                                        # yes video
+  videopt     = 96                                          # Video: payload 96 → H264 @ 90 000Hz
+  videortpmap = "H264/90000"
+  audiopt     = 97                                          # Audio: payload 97 → MPEG-4 AAC @ 44 100 Hz stere
+  audiortpmap = "opus/48000/2"
+  debug_level = 7                                           # verbose logging
+}

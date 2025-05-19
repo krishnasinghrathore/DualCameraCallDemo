@@ -1,0 +1,23 @@
+flowchart LR
+  subgraph Browser
+    LC[Laptop Camera]
+    FN[Next.js Frontend]
+  end
+
+  subgraph Services
+    SS[Signaling Server]
+    JG[Janus Gateway]
+    CT[Coturn Server]
+  end
+
+  subgraph Mobile
+    MI[Mobile IP Camera]
+  end
+
+  LC -->|Media| FN
+  FN -->|WebSocket| SS
+  SS -->|SDP/ICE| JG
+  MI -->|RTSP| JG
+  JG -->|WebRTC| FN
+  FN -->|STUN/TURN| CT
+  CT -->|ICE Candidates| FN

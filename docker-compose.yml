@@ -1,0 +1,53 @@
+services:
+  signaling-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8765:4000"       # host:container (8765 → 4000)
+    environment:
+      NODE_ENV: production
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_WS_URL: ws://signaling-server:8765
+    depends_on:
+      - signaling-server
+
+  coturn:
+    image: instrumentisto/coturn:4.5.2
+    container_name: coturn
+    ports:
+      - "3478:3478/tcp"
+      - "3478:3478/udp"
+    command: >
+      --no-cli
+      --realm=dual-camera-demo
+      --user=tanbeeh:secretpass
+      --lt-cred-mech
+      --log-file=/var/log/turnserver.log
+    restart: unless-stopped
+
+  janus:
+    build:
+      context: ./janus
+      dockerfile: Dockerfile
+    container_name: janus-gateway
+    ports:
+      - "7088:7088"
+      - "8088:8088"
+      - "8188:8188"
+      - "10000-10200:10000-10200/udp"
+    restart: unless-stopped
+    depends_on:
+      - signaling-server
+      - coturn
+
+networks:
+  default:
+    driver: bridge
