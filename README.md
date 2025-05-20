@@ -19,7 +19,7 @@ A browser-based multi-party dual-camera call demonstration. Each participant app
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/DualCameraCallDemo.git
+   git clone https://github.com/krishnasinghrathore/DualCameraCallDemo.git
    cd DualCameraCallDemo
    ```
 2. **Build & launch all services in one command**
